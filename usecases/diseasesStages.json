@@ -1,0 +1,63 @@
+"disease":[
+  {
+    "dxName":"colorectal adenocarcinoma, splenic flexure, Dukes C", 
+    "dxDate":"2013-08-24",
+    "dxClass":[
+      {
+        "ontologySource":"WHO:ICD-O",
+        "ontologyVersion":"3",
+        "accession":null,
+        "id":"8140/3",
+        "name":"adenocarcinoma, NOS",
+      },
+      {
+        "ontologySource":"ICD-O topography",
+        "ontologyVersion":"3",
+        "accession":null,
+        "id":"C18.5",
+        "name":"Splenic flexure of colon"
+      },
+      {
+        "ontologySource":"WHO:ICD",
+        "ontologyVersion":"10",
+        "accession":null,
+        "text":"Malignant neoplasm of splenic flexure",
+        "id":"C18.5",
+      },
+      {
+        "ontologySource":"WHO:ICD",
+        "ontologyVersion":"9",
+        "accession":null,
+        "text":"Malignant neoplasm of splenic flexure",
+        "id":"153.7",
+      },
+      {
+        "ontologySource":"UICC:TNM",
+        "ontologyVersion":null,
+        "accession":null,
+        "code":"T3N1M0",
+        "ontologyText":null,
+      },
+      {
+        "ontologySource":"Dukes",
+        "ontologyVersion":null,
+        "accession":null,
+        "code":"C",
+        "text":null,
+      },
+    ]
+  },
+  {
+    "dxName":"chronic obstructive pulmonary disease",
+    "dxDate":"2010-01-13",
+    "dxClass":[
+      {
+        "ontologySource":"WHO:ICD",
+        "ontologyVersion":"10",
+        "accession":null,
+        "text":"Chronic obstructive pulmonary disease, unspecified",
+        "id":"J44.9",
+      },
+    ]
+  }
+]
