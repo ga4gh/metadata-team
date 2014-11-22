@@ -1,16 +1,12 @@
-
 {
-	"Position":{
-	"referenceName": "hg19",
-	"position": 10000,
-	"reverseStrand": false
-	}
-}
-
-{
-	"CigarUnit":{
-	"operation": "ALIGNMENT_MATCH",
-	"operationLength": 50,
-	"referenceSequence": "hg19"
-	}
+    "Position": {
+        "referenceName": "chr1",
+        "position": 10000,
+        "reverseStrand": false
+    },
+    "CigarUnit": {
+        "operation": "ALIGNMENT_MATCH",
+        "operationLength": 50,
+        "referenceSequence": null
+    }
 }
