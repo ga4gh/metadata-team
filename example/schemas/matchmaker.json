@@ -1,0 +1,182 @@
+{
+    "Submitter": {
+        "email": "some_email@mail.com",
+        "name": "Ivan Ivanov",
+        "institution": "EMC"
+    },
+
+    "Feature": {
+        "id": "HP:0000127",
+        "observed": "true",
+        "ageOfOnset": null
+    },
+
+    "Gene": {
+        "gene": "TP63",
+        "referenceName": "chr3",
+        "start": "189631416",
+        "end": "189897279",
+        "referenceBases": "TGAGTTCTAAGTTAAATATAATCAAGGAATTTCCCTGTCTTTGCTATTTGAGATTGTGACCACAACAGGCGGTTGGCTGAAAGGGAAACTGAAGGGCGGGGAGGGAGGGAAATAGATGAAAAAACAAAACAAAACAAAACTTCCCTAAGCAGCTCTACAAAACATTTTAGCCCCAGAAAT...",
+        "alternateBases": null, 
+        "zygosity": 2
+    },
+
+    "Match": {
+        "id": "487a8828-530d-4dfd-974b-3ea730241680",
+        "label": "some_label",
+        "submitter": {
+            "email": "some_email@mail.com",
+            "name": "Ivan Ivanov",
+            "institution": "EMC"
+        },
+        "sex": "MALE",
+        "ageOfOnset": "HP:0011462",
+        "modeOfInheritance": "HP:0000007",
+        "disorders": ["MIM:129400"],
+        "features": [{
+            "id": "HP:0000127",
+            "observed": "true",
+            "ageOfOnset": null
+        }],
+        "assembly": "GRCh38",
+        "genes": [{
+            "gene": "TP63",
+            "referenceName": "chr3",
+            "start": "189631416",
+            "end": "189897279",
+            "referenceBases": "TGAGTTCTAAGTTAAATATAATCAAGGAATTTCCCTGTCTTTGCTATTTGAGATTGTGACCACAACAGGCGGTTGGCTGAAAGGGAAACTGAAGGGCGGGGAGGGAGGGAAATAGATGAAAAAACAAAACAAAACAAAACTTCCCTAAGCAGCTCTACAAAACATTTTAGCCCCAGAAAT...",
+            "alternateBases": null, 
+            "zygosity": 2
+        }]
+    }, 
+
+    "MatchRequest": {
+        "queryType": "once",
+        "match": {
+            "id": "487a8828-530d-4dfd-974b-3ea730241680",
+            "label": "some_label",
+            "submitter": {
+                "email": "some_email@mail.com",
+                "name": "Ivan Ivanov",
+                "institution": "EMC"
+            },
+            "sex": "MALE",
+            "ageOfOnset": "HP:0011462",
+            "modeOfInheritance": "HP:0000007",
+            "disorders": ["MIM:129400"],
+            "features": [{
+                "id": "HP:0000127",
+                "observed": "true",
+                "ageOfOnset": null
+            }],
+            "assembly": "GRCh38",
+            "genes": [{
+                "gene": "TP63",
+                "referenceName": "chr3",
+                "start": "189631416",
+                "end": "189897279",
+                "referenceBases": "TGAGTTCTAAGTTAAATATAATCAAGGAATTTCCCTGTCTTTGCTATTTGAGATTGTGACCACAACAGGCGGTTGGCTGAAAGGGAAACTGAAGGGCGGGGAGGGAGGGAAATAGATGAAAAAACAAAACAAAACAAAACTTCCCTAAGCAGCTCTACAAAACATTTTAGCCCCAGAAAT...",
+                "alternateBases": null, 
+                "zygosity": 2
+            }]
+        }
+    },
+
+    "MatchResponse": {
+        "queryId": "d552f0b5-cfd8-4622-b6cf-bcd78907e50e",
+        "results": [{
+            "id": "487a8828-530d-4dfd-974b-3ea730241680",
+            "label": "some_label",
+            "submitter": {
+                "email": "some_email@mail.com",
+                "name": "Ivan Ivanov",
+                "institution": "EMC"
+            },
+            "sex": "MALE",
+            "ageOfOnset": "HP:0011462",
+            "modeOfInheritance": "HP:0000007",
+            "disorders": ["MIM:129400"],
+            "features": [{
+                "id": "HP:0000127",
+                "observed": "true",
+                "ageOfOnset": null
+            }],
+            "assembly": "GRCh38",
+            "genes": [{
+                "gene": "TP63",
+                "referenceName": "chr3",
+                "start": "189631416",
+                "end": "189897279",
+                "referenceBases": "TGAGTTCTAAGTTAAATATAATCAAGGAATTTCCCTGTCTTTGCTATTTGAGATTGTGACCACAACAGGCGGTTGGCTGAAAGGGAAACTGAAGGGCGGGGAGGGAGGGAAATAGATGAAAAAACAAAACAAAACAAAACTTCCCTAAGCAGCTCTACAAAACATTTTAGCCCCAGAAAT...",
+                "alternateBases": null, 
+                "zygosity": 2
+            }]
+        }]
+    },
+
+    "AsynchronousMatch": {
+        "queryId": "d552f0b5-cfd8-4622-b6cf-bcd78907e50e",
+        "results": [{
+            "id": "487a8828-530d-4dfd-974b-3ea730241680",
+            "label": "some_label",
+            "submitter": {
+                "email": "some_email@mail.com",
+                "name": "Ivan Ivanov",
+                "institution": "EMC"
+            },
+            "sex": "MALE",
+            "ageOfOnset": "HP:0011462",
+            "modeOfInheritance": "HP:0000007",
+            "disorders": ["MIM:129400"],
+            "features": [{
+                "id": "HP:0000127",
+                "observed": "true",
+                "ageOfOnset": null
+            }],
+            "assembly": "GRCh38",
+            "genes": [{
+                "gene": "TP63",
+                "referenceName": "chr3",
+                "start": "189631416",
+                "end": "189897279",
+                "referenceBases": "TGAGTTCTAAGTTAAATATAATCAAGGAATTTCCCTGTCTTTGCTATTTGAGATTGTGACCACAACAGGCGGTTGGCTGAAAGGGAAACTGAAGGGCGGGGAGGGAGGGAAATAGATGAAAAAACAAAACAAAACAAAACTTCCCTAAGCAGCTCTACAAAACATTTTAGCCCCAGAAAT...",
+                "alternateBases": null, 
+                "zygosity": 2
+            }]
+        }]
+    },
+
+    "AsynchronousResponse": {
+        "responses": [{
+            "queryId": "d552f0b5-cfd8-4622-b6cf-bcd78907e50e",
+            "results": [{
+                "id": "487a8828-530d-4dfd-974b-3ea730241680",
+                "label": "some_label",
+                "submitter": {
+                    "email": "some_email@mail.com",
+                    "name": "Ivan Ivanov",
+                    "institution": "EMC"
+                },
+                "sex": "MALE",
+                "ageOfOnset": "HP:0011462",
+                "modeOfInheritance": "HP:0000007",
+                "disorders": ["MIM:129400"],
+                "features": [{
+                    "id": "HP:0000127",
+                    "observed": "true",
+                    "ageOfOnset": null
+                }],
+                "assembly": "GRCh38",
+                "genes": [{
+                    "gene": "TP63",
+                    "referenceName": "chr3",
+                    "start": "189631416",
+                    "end": "189897279",
+                    "referenceBases": "TGAGTTCTAAGTTAAATATAATCAAGGAATTTCCCTGTCTTTGCTATTTGAGATTGTGACCACAACAGGCGGTTGGCTGAAAGGGAAACTGAAGGGCGGGGAGGGAGGGAAATAGATGAAAAAACAAAACAAAACAAAACTTCCCTAAGCAGCTCTACAAAACATTTTAGCCCCAGAAAT...",
+                    "alternateBases": null, 
+                    "zygosity": 2
+                }]
+            }]
+        }]
+    }
+}
