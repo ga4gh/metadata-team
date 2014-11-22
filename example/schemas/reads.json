@@ -1,0 +1,153 @@
+{
+    "Program" :{
+        "commandLine": "bwa sampe –a 500 –r ‘@RG\tID:example_reads\tPL:illumina\tLB:some_lib\tSM:some_sample’ ref.fa left_reads.sai right_reads.sai left_reads.fastq right_reads.fastq > aln.sam",
+        "id": "dd45c6bb-ca92-4579-9b1e-4074f4d71b48",
+        "name": "bwa sampe",
+        "prevProgramId": "84a8db93-7698-4b7d-8531-38734f1f6665",
+        "version": "0.7.10"
+    },
+
+    "Dataset": {
+        "id": "my_dataset",
+        "description": null
+    },
+
+    "Experiment": {
+        "libraryId": "some_lib",
+        "platformUnit": "illumina",
+        "sequencingCenter": null,
+        "instrumentModel": "Illumina MiSeq"
+    },
+
+    "ReadStats": {
+        "alignedReadCount": 1000100,
+        "unalignedReadCount": 125,
+        "baseCount": 2895640
+    },
+
+    "ReadGroup": {
+        "id": "example_reads",
+        "datasetId": "my_dataset",
+        "name": "example_reads",
+        "description": null,
+        "sampleId": "some_sample",
+        "experiment": {
+            "libraryId": "some_lib",
+            "platformUnit": "illumina",
+            "sequencingCenter": null,
+            "instrumentModel": "Illumina MiSeq"
+        },
+        "predictedInsertSize": 150,
+        "created": 1416416735,
+        "updated": 1416416735,
+        "stats": {
+            "alignedReadCount": 1000100,
+            "unalignedReadCount": 125,
+            "baseCount": 2895640
+        },
+        "programs": [{
+            "commandLine": "bwa sampe –a 500 –r ‘@RG\tID:example_reads\tPL:illumina\tLB:some_lib\tSM:some_sample’ ref.fa left_reads.sai right_reads.sai left_reads.fastq right_reads.fastq > aln.sam",
+            "id": "dd45c6bb-ca92-4579-9b1e-4074f4d71b48",
+            "name": "bwa sampe",
+            "prevProgramId": "84a8db93-7698-4b7d-8531-38734f1f6665",
+            "version": "0.7.10"
+        }
+        ],
+        "referenceSetId": "GRCh38",
+        "info": null
+    },
+
+    "ReadGroupSet": {
+        "id": "read_group_set_id",
+        "datasetId": "my_dataset",
+        "name": "example_read_group_set",
+        "stats": {
+            "alignedReadCount": 1000100,
+            "unalignedReadCount": 125,
+            "baseCount": 2895640
+        },
+        "readGroups": [{
+            "id": "example_reads",
+            "datasetId": "my_dataset",
+            "name": "example_reads",
+            "description": null,
+            "sampleId": "some_sample",
+            "experiment": {
+                "libraryId": "some_lib",
+                "platformUnit": "illumina",
+                "sequencingCenter": null,
+                "instrumentModel": "Illumina MiSeq"
+            },
+            "predictedInsertSize": 150,
+            "created": 1416416735,
+            "updated": 1416416735,
+            "stats": {
+                "alignedReadCount": 1000100,
+                "unalignedReadCount": 125,
+                "baseCount": 2895640
+            },
+            "programs": [{
+                "commandLine": "bwa sampe –a 500 –r ‘@RG\tID:example_reads\tPL:illumina\tLB:some_lib\tSM:some_sample’ ref.fa left_reads.sai right_reads.sai left_reads.fastq right_reads.fastq > aln.sam",
+                "id": "dd45c6bb-ca92-4579-9b1e-4074f4d71b48",
+                "name": "bwa sampe",
+                "prevProgramId": "84a8db93-7698-4b7d-8531-38734f1f6665",
+                "version": "0.7.10"
+            }
+            ],
+            "referenceSetId": "GRCh38",
+            "info": null
+        }
+        ]
+    },
+
+    "LinearAlignment": {
+        "position": {
+            "referenceName": "chr1",
+            "position": 104800,
+            "reverseStrand": false 
+        },
+        "mappingQuality": 30,
+        "cigar": [{
+            "operation": "ALIGNMENT_MATCH",
+            "operationLength": 100,
+            "referenceSequence": null
+        }]
+    },
+
+    "ReadAlignment": {
+        "id": null,
+        "readGroupId": "example_reads",
+        "fragmentName": "HWUSI-EAS100R:6:73:941:1973#0/1",
+        "properPlacement": true,
+        "duplicateFragment": false,
+        "numberReads": null,
+        "fragmentLength": 100,
+        "readNumber": null,
+        "failedVendorQualityChecks": false,
+        "alignment": {
+            "position": {
+                "referenceName": "chr1",
+                "position": 104800,
+                "reverseStrand": false 
+            },
+            "mappingQuality": 30,
+            "cigar": [{
+                "operation": "ALIGNMENT_MATCH",
+                "operationLength": 100,
+                "referenceSequence": null
+            }]
+        },
+        "secondaryAlignment": false,
+        "supplementaryAlignment": false,  
+        "alignedSequence": "CCAACCCTGGACTGGATGCTATTGCACTGCAGGACACACACACACACACTCACAATGGGGCAATTTAGACACACCAATGAACCTAATGTGCATATCT",
+        "alignedQuality": [10, 28, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+                         30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 29, 30, 30, 18, 30, 30, 30, 30, 30, 
+                         30, 30, 30, 30, 30, 27, 30, 30, 30, 10, 30, 30, 30, 30, 30, 30, 30, 18, 25, 30],
+        "nextMatePosition": {
+            "referenceName": "chr1",
+            "position": 104888,
+            "reverseStrand": false 
+        },
+        "info": {}
+    }
+}

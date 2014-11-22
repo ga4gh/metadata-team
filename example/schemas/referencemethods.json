@@ -1,69 +1,59 @@
 {
-  "SearchReferenceSetsRequest": {
-  	"md5checksums": ["5cc29b36f683da82aaf6724fdab15713"],
-  	"accessions": ["NC_000001.11"],
-  	"assemblyId": "GRCh38",
-  	"pageSize": null,
-  	"pageToken": null
-  }
-}
+    "SearchReferenceSetsRequest": {
+        "md5checksums": ["5cc29b36f683da82aaf6724fdab15713"],
+        "accessions": ["NC_000001.11"],
+        "assemblyId": "GRCh38",
+        "pageSize": null,
+        "pageToken": null
+    },
 
-{
-  "SearchReferenceSetsResponse": {
-  	"referenceSets": [{
-  		"id": "GRCh38",
-  		"referenceIds": ["NC_000001", "NC_000002", "NC_000003", "NC_000004", "NC_000005", "NC_000006", "NC_000007", "NC_000008", "NC_000009", "NC_000010", "NC_000011", "NC_000012"],
-  		"md5checksum": "5cc29b36f683da82aaf6724fdab15713",
-  		"ncbiTaxonId": 9606,
-  		"assemblyId": "GRCh38",
-  		"sourceURI": "ftp://ftp.ncbi.nlm.nih.gov/genomes/H_sapiens/Assembled_chromosomes/",
-  		"sourceAccessions": ["NC_000001.11", "CM000663.2", "NC_000002.12", "CM000664.2", "NC_000003.12", "CM000665.2", "NC_000004.12", "CM000666.2", "NC_000005.10", "CM000667.2", "NC_000006.12", "CM000668.2"],
-  		"isDerived": false
-  	}
-  	],
-  	"nextPageToken": null
+    "SearchReferenceSetsResponse": {
+        "referenceSets": [{
+            "id": "GRCh38",
+            "referenceIds": ["NC_000001", "NC_000002", "NC_000003", "NC_000004", "NC_000005", "NC_000006", "NC_000007", "NC_000008", "NC_000009", "NC_000010", "NC_000011", "NC_000012"],
+            "md5checksum": "5cc29b36f683da82aaf6724fdab15713",
+            "ncbiTaxonId": 9606,
+            "assemblyId": "GRCh38",
+            "sourceURI": "ftp://ftp.ncbi.nlm.nih.gov/genomes/H_sapiens/Assembled_chromosomes/",
+            "sourceAccessions": ["NC_000001.11", "CM000663.2", "NC_000002.12", "CM000664.2", "NC_000003.12", "CM000665.2", "NC_000004.12", "CM000666.2", "NC_000005.10", "CM000667.2", "NC_000006.12", "CM000668.2"],
+            "isDerived": false
+        }
+        ],
+        "nextPageToken": null
+    },
+
+    "SearchReferencesRequest": {
+        "md5checksums": "1bc29b36f623ba82aaf6724fd3b16718",
+        "accessions": ["NC_000001.11"],
+        "pageSize": null,
+        "pageToken": null
+    },
+
+    "SearchReferencesResponse": {
+        "references": [{
+            "id": "NC_000001",
+            "length": 248956422,
+            "md5checksum": "1bc29b36f623ba82aaf6724fd3b16718",
+            "name": "chr1",
+            "sourceURI": "ftp://ftp.ncbi.nlm.nih.gov/genomes/H_sapiens/Assembled_chromosomes/seq/hs_alt_CHM1_1.1_chr1.fa.gz",
+            "sourceAccessions": ["NC_000001.11", "CM000663.2"],
+            "isDerived": false,
+            "sourceDivergence": null,
+            "ncbiTaxonId": 9606
+        }
+        ],
+        "nextPageToken": null
+    },
+
+    "ListReferenceBasesRequest": {
+        "start": 189631160,
+        "end": 189631200,
+        "pageToken": null
+    },
+
+    "ListReferenceBasesResponse": {
+        "offset": 0,
+        "sequence": "AAGTTCAGAGATGCCTCCAGCTCCAAATTGCCAACAACAA",
+        "nextPageToken": null
     }
-}
-
-{
-  "SearchReferencesRequest": {
-  	"md5checksums": "1bc29b36f623ba82aaf6724fd3b16718",
-  	"accessions": ["NC_000001.11"],
-  	"pageSize": null,
-  	"pageToken": null
-  }
-}
-
-{
-  "SearchReferencesResponse": {
-  	"references": [{
-  		"id": "NC_000001",
-  		"length": 248956422,
-  		"md5checksum": "1bc29b36f623ba82aaf6724fd3b16718",
-  		"name": "chr1",
-  		"sourceURI": "ftp://ftp.ncbi.nlm.nih.gov/genomes/H_sapiens/Assembled_chromosomes/seq/hs_alt_CHM1_1.1_chr1.fa.gz",
-  		"sourceAccessions": ["NC_000001.11", "CM000663.2"],
-  		"isDerived": false,
-  		"sourceDivergence": null,
-  		"ncbiTaxonId": 9606
-  	}
-  	],
-  	"nextPageToken": null
-  }
-}
-
-{
-  "ListReferenceBasesRequest": {
-  	"start": 189631160,
-  	"end": 189631200,
-  	"pageToken": null
-  }
-}
-
-{
-  "ListReferenceBasesResponse": {
-  	"offset": 0,
-  	"sequence": "AAGTTCAGAGATGCCTCCAGCTCCAAATTGCCAACAACAA",
-  	"nextPageToken": null
-  }
 }

@@ -1,0 +1,100 @@
+{
+    "SearchVariantSetsRequest": {
+        "datasetIds": "my_dataset",
+        "pageSize": null,
+        "pageToken": null
+    },
+
+    "SearchVariantSetsResponse": {
+        "variantSets": [{
+            "id": "my_variant_set_id",
+            "datasetId": "my_dataset",
+            "metadata": [{
+                "key": "DP",
+                "value": "14",
+                "id": "DP",
+                "type": "Integer",
+                "number": 1,
+                "description": "Total depth",
+                "info": {}
+            }, {
+                "key": "AF",
+                "value": "0.5",
+                "id": "AF",
+                "type": "Float",
+                "number": 1,
+                "description": "Allele Frequency",
+                "info": {}
+            }
+            ]
+        }
+        ]
+    },
+
+    "SearchVariantsRequest": {
+        "variantSetIds": ["my_dataset"],
+        "variantName": ["rs6054257"],
+        "callSetIds": ["some_call_set_id"],
+        "referenceName": "chr1",
+        "start": 0,
+        "end": 100000,
+        "pageSize": null,
+        "pageToken": null
+    },
+
+    "SearchVariantsResponse": {
+        "variants": [ {
+            "id": "rs6054257",
+            "variantSetId": "my_variant_set_id",
+            "names": ["rs6054257"],
+            "created": 1416416735,
+            "updated": 1416416735,
+            "referenceName": "chr1",
+            "start": 14370,
+            "end": 14371,
+            "referenceBases": "G",
+            "alternateBases": "A",
+            "info": {
+                "DP": "14",
+                "AF": "0.5"
+            },
+            "call": [ {    
+                "callSetId": "NA00001",
+                "callSetName": "NA00001",
+                "genotype": [0, 1],
+                "phaseset": null,
+                "genotypeLikelihood": [30, 12],
+                "info": {                            
+                    "GT": "1|0",
+                    "GQ": "48",
+                    "DP": "1",
+                    "HQ": "51, 51"
+                }
+            }
+            ]
+        }
+        ],
+        "nextPageToken": null
+    },
+
+    "SearchCallSetsRequest": {
+        "variantSetIds": ["my_variant_set_id"],
+        "name": "some_call_set", 
+        "pageSize": null,
+        "pageToken": null
+    },
+
+    "SearchCallSetsResponse": {
+        "callSets": [{
+            "id": "some_call_set_id",
+            "name": "some_call_set",
+            "sampleId": "some_sample",
+            "variantSetIds": ["my_variant_set_id"],
+            "created": 1416416735,
+            "updated": 1416416735,
+            "info": {}
+        }
+        ],
+        "nextPageToken": null
+    }
+}
