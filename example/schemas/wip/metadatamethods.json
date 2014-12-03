@@ -1,0 +1,144 @@
+{
+    "SearchIndividualsRequest": {
+        "groupIds": ["8c7409e2-d8be-4998-b00d-f7d5bee7c164"],
+        "name": "John",
+        "pageSize": 1024,
+        "pageToken": null
+    },
+
+    "SearchIndividualsResponse": {
+        "individuals": [{
+            "id": "538764ae-5bc8-4f2b-b691-d99d6e1f754a",
+            "groupIds": ["8c7409e2-d8be-4998-b00d-f7d5bee7c164"],
+            "name": "John Smith",
+            "description": null,
+            "created": 1416416735,
+            "updated": 1416416735,
+            "species": { 
+                "ontologySource": "http://purl.obolibrary.org/obo/NCBITaxon_9606",
+                "id": "NCBITaxon:9606",
+                "name": "Homo sapiens"
+            },
+            "sex": "MALE",
+            "developmentalStage": { 
+                "ontologySource": "WHO:ICD",
+                "id": "C18.5",
+                "name": "Malignant neoplasm of splenic flexure"
+            },
+            "dateOfBirth": 1400324354,
+            "diseases": [{ 
+                "ontologySource": "WHO:ICD-O",
+                "id": "8140/3",
+                "name": "adenocarcinoma, NOS"
+            }],
+            "phenotypes": [{ 
+                "ontologySource": "ICD10",
+                "id": "I12.9",
+                "name": "hypertensive renal disease"
+            }],
+            "stagingSystem": "Dukes C",
+            "clinicalTreatment": null,
+            "strain": null,
+            "info": {}
+        }],
+        "nextPageToken": null
+    },
+
+    "SearchSamplesRequest": {
+        "individualIds": ["538764ae-5bc8-4f2b-b691-d99d6e1f754a"],
+        "name": "Human",
+        "pageSize": 1024,
+        "pageToken": null
+    },
+
+    "SearchSamplesResponse": {
+        "samples": [{
+            "id": "231494d6-1e51-45b0-a015-e8b8289b233e",
+            "individualId": "538764ae-5bc8-4f2b-b691-d99d6e1f754a",
+            "accessions": ["eusnv_451987_01"],
+            "name": "Human sample for Human",
+            "description": null,
+            "created": 1416416735,
+            "updated": 1416416735,
+            "samplingDate": 1416413182,
+            "age": 53,
+            "cellType": null,
+            "cellLine": null,
+            "geocode": null,
+            "organismPart": { 
+                "ontologySource": "Uberon",
+                "id": "UBERON_0013755",
+                "name": "arterial blood"
+            },
+            "info": {}
+        }],
+        "nextPageToken": null
+    },
+
+    "SearchExperimentsRequest": {
+        "name": "Whole Genome Sequencing",
+        "pageSize": 1024,
+        "pageToken": null
+    },
+
+    "SearchExperimentsResponse": {
+        "experiments": [{
+            "id": "a93ba556-1e31-4d8c-bfe8-575a562a961c",
+            "name": "Whole Genome Sequencing of Charge-S ARIC sample A09994",
+            "description": null,
+            "created": 1416413182,
+            "updated": 1416413182,
+            "runDate": 1416413182,
+            "molecule": "genomics DNA",
+            "strategy": "whole genome sequencing",
+            "selection": "random",
+            "library": "IWG_IND-ARXREB.A09994_1pA",
+            "libraryLayout": "Paired",
+            "instrumentModel": "Illumina HiSeq 2000",
+            "instrumentDataFile": null,
+            "sequencingCenter": "BI",
+            "platformUnit": null,
+            "info": {}
+        }],
+        "nextPageToken": null
+    },
+
+    "SearchIndividualGroupsRequest": {
+        "name": "men from Europe",
+        "pageSize": 1024,
+        "pageToken": null
+    },
+
+    "SearchIndividualGroupsResponse": {
+        "individualGroups": [{
+            "id": "8c7409e2-d8be-4998-b00d-f7d5bee7c164",
+            "name": "men from Europe",
+            "description": null,
+            "created": 1416413182,
+            "updated": 1416413182,
+            "type": null,
+            "info": {}
+        }],
+        "nextPageToken": null
+    },
+
+    "SearchAnalysesRequest": {
+        "name": "RGEN",
+        "pageSize": 1024,
+        "pageToken": null
+    },
+
+    "SearchAnalysesResponse": {
+        "analyses": [{
+            "id": "63a92790-88a7-4dd8-a810-3eb9a93ab67e",
+            "name": "RGEN off target analysis",
+            "description": null, 
+            "created": 1416413182,
+            "updated": 1416413182,
+            "type": "whole genome sequencing",
+            "software": null,
+            "info": {}
+        }],
+        "nextPageToken": null
+    }
+}

@@ -1,0 +1,425 @@
+{
+    "Program" :{
+        "commandLine": "bwa sampe -a 1188 -r $rg_line -f $sam_file $reference_fasta $sai_file(s) $fastq_file(s)",
+        "id": "bwa_sam",
+        "name": "bwa",
+        "prevProgramId": "bwa_aln_fastq",
+        "version": "0.5.9-r16"
+    },
+
+    "Dataset": {
+        "id": "10473108253681171589",
+        "description": null
+    },
+
+    "Experiment": {
+        "libraryId": "Sage-111246",
+        "platformUnit": null,
+        "sequencingCenter": "BI",
+        "instrumentModel": "ILLUMINA"
+    },
+
+    "ReadStats": {
+        "alignedReadCount": 1000100,
+        "unalignedReadCount": 125,
+        "baseCount": 2895640
+    },
+
+    "ReadGroup": {
+        "id": "ChZDTXZuaHBLVEZoRHE5ZTJZeTlHLUJnEAA",
+        "datasetId": "10473108253681171589",
+        "name": "SRR582182",
+        "description": "SRP001518",
+        "sampleId": "HG02573",
+        "experiment": {
+            "libraryId": "Sage-111246",
+            "platformUnit": null,
+            "sequencingCenter": "BI",
+            "instrumentModel": "ILLUMINA"
+        },
+        "predictedInsertSize": 396,
+        "created": null,
+        "updated": null,
+        "stats": null,
+        "programs": [
+          {
+           "commandLine": "bwa index -a bwtsw $reference_fasta",
+           "id": "bwa_index",
+           "name": "bwa",
+           "version": "0.5.9-r16"
+          },
+          {
+           "commandLine": "bwa aln -q 15 -f $sai_file $reference_fasta $fastq_file",
+           "id": "bwa_aln_fastq",
+           "name": "bwa",
+           "prevProgramId": "bwa_index",
+           "version": "0.5.9-r16"
+          },
+          {
+           "commandLine": "bwa sampe -a 1188 -r $rg_line -f $sam_file $reference_fasta $sai_file(s) $fastq_file(s)",
+           "id": "bwa_sam",
+           "name": "bwa",
+           "prevProgramId": "bwa_aln_fastq",
+           "version": "0.5.9-r16"
+          },
+          {
+           "commandLine": "samtools view -bSu $sam_file | samtools sort -n -o - samtools_nsort_tmp | samtools fixmate /dev/stdin /dev/stdout | samtools sort -o - samtools_csort_tmp | samtools fillmd -u - $reference_fasta > $fixed_bam_file",
+           "id": "sam_to_fixed_bam",
+           "name": "samtools",
+           "prevProgramId": "bwa_sam",
+           "version": "0.1.17 (r973:277)"
+          },
+          {
+           "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T RealignerTargetCreator -R $reference_fasta -o $intervals_file -known $known_indels_file(s) ",
+           "id": "gatk_target_interval_creator",
+           "name": "GenomeAnalysisTK",
+           "prevProgramId": "sam_to_fixed_bam",
+           "version": "1.2-29-g0acaf2d"
+          },
+          {
+           "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T IndelRealigner -R $reference_fasta -I $bam_file -o $realigned_bam_file -targetIntervals $intervals_file -known $known_indels_file(s) -LOD 0.4 -model KNOWNS_ONLY -compress 0 --disable_bam_indexing",
+           "id": "bam_realignment_around_known_indels",
+           "name": "GenomeAnalysisTK",
+           "prevProgramId": "gatk_target_interval_creator",
+           "version": "1.2-29-g0acaf2d"
+          },
+          {
+           "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T CountCovariates -R $reference_fasta -I $bam_file -recalFile $bam_file.recal_data.csv -knownSites $known_sites_file(s) -l INFO -L '1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y;MT' -cov ReadGroupCovariate -cov QualityScoreCovariate -cov CycleCovariate -cov DinucCovariate",
+           "id": "bam_count_covariates",
+           "name": "GenomeAnalysisTK",
+           "prevProgramId": "bam_realignment_around_known_indels",
+           "version": "1.2-29-g0acaf2d"
+          },
+          {
+           "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T TableRecalibration -R $reference_fasta -recalFile $bam_file.recal_data.csv -I $bam_file -o $recalibrated_bam_file -l INFO -compress 0 --disable_bam_indexing",
+           "id": "bam_recalibrate_quality_scores",
+           "name": "GenomeAnalysisTK",
+           "prevProgramId": "bam_count_covariates",
+           "version": "1.2-29-g0acaf2d"
+          },
+          {
+           "commandLine": "samtools calmd -Erb $bam_file $reference_fasta > $bq_bam_file",
+           "id": "bam_calculate_bq",
+           "name": "samtools",
+           "prevProgramId": "bam_recalibrate_quality_scores",
+           "version": "0.1.17 (r973:277)"
+          },
+          {
+           "commandLine": "java $jvm_args -jar MergeSamFiles.jar INPUT=$bam_file(s) OUTPUT=$merged_bam VALIDATION_STRINGENCY=SILENT",
+           "id": "bam_merge",
+           "name": "picard",
+           "prevProgramId": "bam_calculate_bq",
+           "version": "1.53"
+          },
+          {
+           "commandLine": "java $jvm_args -jar MarkDuplicates.jar INPUT=$bam_file OUTPUT=$markdup_bam_file ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT",
+           "id": "bam_mark_duplicates",
+           "name": "picard",
+           "prevProgramId": "bam_merge",
+           "version": "1.53"
+          },
+          {
+           "commandLine": "java $jvm_args -jar MergeSamFiles.jar INPUT=$bam_file(s) OUTPUT=$merged_bam VALIDATION_STRINGENCY=SILENT",
+           "id": "bam_merge.1",
+           "name": "picard",
+           "prevProgramId": "bam_mark_duplicates",
+           "version": "1.53"
+          }
+        ]
+    },
+
+    "ReadGroupSet": {
+        "id": "CMvnhpKTFhDq9e2Yy9G-Bg",
+        "datasetId": "10473108253681171589",
+        "name": "HG02573",
+        "filename": "HG02573.mapped.ILLUMINA.bwa.GWD.low_coverage.20130415.bam", # not listed in schema
+        "stats": null,
+        "readGroups": [{
+            "id": "ChZDTXZuaHBLVEZoRHE5ZTJZeTlHLUJnEAA",
+            "datasetId": "10473108253681171589",
+            "name": "SRR582182",
+            "description": "SRP001518",
+            "sampleId": "HG02573",
+            "experiment": {
+                "libraryId": "Sage-111246",
+                "platformUnit": null,
+                "sequencingCenter": "BI",
+                "instrumentModel": "ILLUMINA"
+            },
+            "predictedInsertSize": 396,
+            "created": null,
+            "updated": null,
+            "stats": null,
+            "programs": [
+              {
+               "commandLine": "bwa index -a bwtsw $reference_fasta",
+               "id": "bwa_index",
+               "name": "bwa",
+               "version": "0.5.9-r16"
+              },
+              {
+               "commandLine": "bwa aln -q 15 -f $sai_file $reference_fasta $fastq_file",
+               "id": "bwa_aln_fastq",
+               "name": "bwa",
+               "prevProgramId": "bwa_index",
+               "version": "0.5.9-r16"
+              },
+              {
+               "commandLine": "bwa sampe -a 1188 -r $rg_line -f $sam_file $reference_fasta $sai_file(s) $fastq_file(s)",
+               "id": "bwa_sam",
+               "name": "bwa",
+               "prevProgramId": "bwa_aln_fastq",
+               "version": "0.5.9-r16"
+              },
+              {
+               "commandLine": "samtools view -bSu $sam_file | samtools sort -n -o - samtools_nsort_tmp | samtools fixmate /dev/stdin /dev/stdout | samtools sort -o - samtools_csort_tmp | samtools fillmd -u - $reference_fasta > $fixed_bam_file",
+               "id": "sam_to_fixed_bam",
+               "name": "samtools",
+               "prevProgramId": "bwa_sam",
+               "version": "0.1.17 (r973:277)"
+              },
+              {
+               "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T RealignerTargetCreator -R $reference_fasta -o $intervals_file -known $known_indels_file(s) ",
+               "id": "gatk_target_interval_creator",
+               "name": "GenomeAnalysisTK",
+               "prevProgramId": "sam_to_fixed_bam",
+               "version": "1.2-29-g0acaf2d"
+              },
+              {
+               "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T IndelRealigner -R $reference_fasta -I $bam_file -o $realigned_bam_file -targetIntervals $intervals_file -known $known_indels_file(s) -LOD 0.4 -model KNOWNS_ONLY -compress 0 --disable_bam_indexing",
+               "id": "bam_realignment_around_known_indels",
+               "name": "GenomeAnalysisTK",
+               "prevProgramId": "gatk_target_interval_creator",
+               "version": "1.2-29-g0acaf2d"
+              },
+              {
+               "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T CountCovariates -R $reference_fasta -I $bam_file -recalFile $bam_file.recal_data.csv -knownSites $known_sites_file(s) -l INFO -L '1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;X;Y;MT' -cov ReadGroupCovariate -cov QualityScoreCovariate -cov CycleCovariate -cov DinucCovariate",
+               "id": "bam_count_covariates",
+               "name": "GenomeAnalysisTK",
+               "prevProgramId": "bam_realignment_around_known_indels",
+               "version": "1.2-29-g0acaf2d"
+              },
+              {
+               "commandLine": "java $jvm_args -jar GenomeAnalysisTK.jar -T TableRecalibration -R $reference_fasta -recalFile $bam_file.recal_data.csv -I $bam_file -o $recalibrated_bam_file -l INFO -compress 0 --disable_bam_indexing",
+               "id": "bam_recalibrate_quality_scores",
+               "name": "GenomeAnalysisTK",
+               "prevProgramId": "bam_count_covariates",
+               "version": "1.2-29-g0acaf2d"
+              },
+              {
+               "commandLine": "samtools calmd -Erb $bam_file $reference_fasta > $bq_bam_file",
+               "id": "bam_calculate_bq",
+               "name": "samtools",
+               "prevProgramId": "bam_recalibrate_quality_scores",
+               "version": "0.1.17 (r973:277)"
+              },
+              {
+               "commandLine": "java $jvm_args -jar MergeSamFiles.jar INPUT=$bam_file(s) OUTPUT=$merged_bam VALIDATION_STRINGENCY=SILENT",
+               "id": "bam_merge",
+               "name": "picard",
+               "prevProgramId": "bam_calculate_bq",
+               "version": "1.53"
+              },
+              {
+               "commandLine": "java $jvm_args -jar MarkDuplicates.jar INPUT=$bam_file OUTPUT=$markdup_bam_file ASSUME_SORTED=TRUE METRICS_FILE=/dev/null VALIDATION_STRINGENCY=SILENT",
+               "id": "bam_mark_duplicates",
+               "name": "picard",
+               "prevProgramId": "bam_merge",
+               "version": "1.53"
+              },
+              {
+               "commandLine": "java $jvm_args -jar MergeSamFiles.jar INPUT=$bam_file(s) OUTPUT=$merged_bam VALIDATION_STRINGENCY=SILENT",
+               "id": "bam_merge.1",
+               "name": "picard",
+               "prevProgramId": "bam_mark_duplicates",
+               "version": "1.53"
+              }
+             ],
+            "referenceSetId": "EOSt9JOVhp3jkwE",
+            "info": null
+        }
+        ]
+    },
+
+    "LinearAlignment": {
+        "position": {
+            "referenceName": "1",
+            "position": 1999903,
+            "reverseStrand": true 
+        },
+        "mappingQuality": 60,
+        "cigar": [{
+            "operation": "ALIGNMENT_MATCH",
+            "operationLength": 101,
+            "referenceSequence": null
+        }]
+    },
+
+    "ReadAlignment": {
+        "id": "ChdDTXZuaHBLVEZoRDA0ZUxFLXEyeXhuVRIBMRifiHooAA",
+        "readGroupId": "ChdDTXZuaHBLVEZoRDA0ZUxFLXEyeXhuVRAB",
+        "readGroupSetId": "CMvnhpKTFhD04eLE-q2yxnU", # not listed in ga4gh scheme
+        "fragmentName": "SRR741385.63375272",
+        "properPlacement": true,
+        "duplicateFragment": false,
+        "numberReads": 2,
+        "fragmentLength": -297,
+        "readNumber": 0,
+        "failedVendorQualityChecks": false,
+        "alignment": {
+            "position": {
+                "referenceName": "1",
+                "position": 1999903,
+                "reverseStrand": true 
+            },
+            "mappingQuality": 60,
+            "cigar": [{
+                "operation": "ALIGNMENT_MATCH",
+                "operationLength": 101,
+                "referenceSequence": null
+            }]
+        },
+        "secondaryAlignment": false,
+        "supplementaryAlignment": false,  
+        "alignedSequence": "CTCCCCCATGTCTGTGTCTTTTCTCACTGGAACACCGGTGGTCGGCTTTGGGGCCCACCAGGGCAGTCCAGGACATTCACCTTGAGACCTGGCCTTAATCA",
+        "alignedQuality":  [
+            18,
+            24,
+            40,
+            41,
+            36,
+            26,
+            32,
+            34,
+            43,
+            41,
+            40,
+            40,
+            39,
+            27,
+            39,
+            37,
+            43,
+            49,
+            50,
+            50,
+            38,
+            50,
+            49,
+            50,
+            43,
+            41,
+            48,
+            40,
+            41,
+            39,
+            35,
+            44,
+            29,
+            33,
+            37,
+            28,
+            39,
+            38,
+            41,
+            40,
+            40,
+            41,
+            32,
+            42,
+            43,
+            42,
+            44,
+            44,
+            42,
+            42,
+            41,
+            43,
+            41,
+            43,
+            41,
+            40,
+            39,
+            43,
+            43,
+            41,
+            43,
+            43,
+            41,
+            43,
+            43,
+            41,
+            41,
+            39,
+            42,
+            42,
+            42,
+            42,
+            41,
+            42,
+            40,
+            41,
+            37,
+            38,
+            37,
+            39,
+            40,
+            43,
+            41,
+            41,
+            42,
+            39,
+            39,
+            42,
+            40,
+            39,
+            41,
+            40,
+            39,
+            38,
+            41,
+            37,
+            38,
+            38,
+            48,
+            47,
+            13
+        ],
+        "nextMatePosition": {
+            "referenceName": "1",
+            "position": 1999706,
+            "reverseStrand": false 
+        },
+        "info": {
+            "AM": [
+             "37"
+            ],
+            "BQ": [
+             "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@G@"
+            ],
+            "MD": [
+             "101"
+            ],
+            "MQ": [
+             "60"
+            ],
+            "NM": [
+             "0"
+            ],
+            "RG": [
+             "SRR741385"
+            ],
+            "SM": [
+             "37"
+            ],
+            "X0": [
+             "1"
+            ],
+            "X1": [
+             "0"
+            ],
+            "XT": [
+             "U"
+        ]}
+    }
+}

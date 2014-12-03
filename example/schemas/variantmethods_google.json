@@ -1,0 +1,253 @@
+{
+    "SearchVariantSetsRequest": {
+        "datasetIds": "10473108253681171589",
+        "pageSize": null,
+        "pageToken": null
+    },
+
+    "SearchVariantSetsResponse": {
+        "variantSets": [{
+            "id": "10473108253681171589",
+            "datasetId": "10473108253681171589",
+            "referenceBounds": [    # not listed in ga4gh schemas
+                {
+                 "referenceName": "1",
+                 "upperBound": "249881990"
+                },
+                {
+                 "referenceName": "10",
+                 "upperBound": "135655406"
+                },
+                {
+                 "referenceName": "11",
+                 "upperBound": "135869680"
+                },
+                {
+                 "referenceName": "12",
+                 "upperBound": "133876673"
+                },
+                {
+                 "referenceName": "13",
+                 "upperBound": "115426165"
+                },
+                {
+                 "referenceName": "14",
+                 "upperBound": "107944639"
+                },
+                {
+                 "referenceName": "15",
+                 "upperBound": "102745598"
+                },
+                {
+                 "referenceName": "16",
+                 "upperBound": "90838372"
+                },
+                {
+                 "referenceName": "17",
+                 "upperBound": "82002594"
+                },
+                {
+                 "referenceName": "18",
+                 "upperBound": "78075091"
+                },
+                {
+                 "referenceName": "19",
+                 "upperBound": "59939388"
+                },
+                {
+                 "referenceName": "2",
+                 "upperBound": "243730345"
+                },
+                {
+                 "referenceName": "20",
+                 "upperBound": "63256407"
+                },
+                {
+                 "referenceName": "21",
+                 "upperBound": "48840481"
+                },
+                {
+                 "referenceName": "22",
+                 "upperBound": "52060263"
+                },
+                {
+                 "referenceName": "3",
+                 "upperBound": "198272778"
+                },
+                {
+                 "referenceName": "4",
+                 "upperBound": "191045602"
+                },
+                {
+                 "referenceName": "5",
+                 "upperBound": "181678689"
+                },
+                {
+                 "referenceName": "6",
+                 "upperBound": "171621146"
+                },
+                {
+                 "referenceName": "7",
+                 "upperBound": "159658172"
+                },
+                {
+                 "referenceName": "8",
+                 "upperBound": "147034648"
+                },
+                {
+                 "referenceName": "9",
+                 "upperBound": "141543015"
+                },
+                {
+                 "referenceName": "MT",
+                 "upperBound": "1016496"
+                },
+                {
+                 "referenceName": "X",
+                 "upperBound": "155366981"
+                },
+                {
+                 "referenceName": "Y",
+                 "upperBound": "29790620"
+                }
+            ],
+            "metadata": [{
+                    "key": "FORMAT",
+                    "id": "DS",
+                    "type": "FLOAT",
+                    "number": "1",
+                    "description": "Genotype dosage from MaCH/Thunder"
+                },
+                {
+                    "key": "reference",
+                    "value": "GRCh37",
+                    "type": "UNKNOWN_TYPE"
+                },
+                {
+                    "key": "INFO",
+                    "id": "DP",
+                    "type": "INTEGER",
+                    "number": "1",
+                    "description": "Raw read depth"
+                },
+                {
+                    "key": "contig",
+                    "id": "MT",
+                    "type": "UNKNOWN_TYPE",
+                    "info": {
+                        "length": [
+                            "16569"
+                        ],
+                        "md5": [
+                            "5d155a500975d0115cbea18770554f48"
+                        ]
+                    }
+                }
+            ]
+        }
+        ]
+    },
+
+    "SearchVariantsRequest": {
+        "variantSetIds": ["10473108253681171589"],
+        "variantName": null,
+        "callSetIds": ["10473108253681171589-0"],
+        "referenceName": "1",
+        "start": 100000,
+        "end": 110000,
+        "maxCalls": 1,  # not listed in ga4gh schemas
+        "pageSize": null,
+        "pageToken": null
+    },
+
+    "SearchVariantsResponse": {
+        "variants": [ {
+            "id": "CIX5gpf8jv2rkQESATEYw5IGIOqew6jNz8Df4AE",
+            "variantSetId": "10473108253681171589",
+            "names": ["rs188226172", "rs188226172"],
+            "created": 1411709137220,
+            "updated": null,
+            "referenceName": "1",
+            "start": 100675,
+            "end": 100676,
+            "referenceBases": "A",
+            "alternateBases": ["T"],
+            "quality": 100,     # strange, but also not listed in ga4gh schemas
+            "filter": ["PASS"], # not listed too
+            "info": {
+                "THETA": [
+                 "0.0212"
+                ],
+                "LDAF": [
+                 "0.0047"
+                ],
+                "AN": [
+                 "2184"
+                ],
+                "VT": [
+                 "SNP"
+                ],
+                "AA": [
+                 "."
+                ],
+                "RSQ": [
+                 "0.2646"
+                ],
+                "SNPSOURCE": [
+                 "LOWCOV"
+                ],
+                "ERATE": [
+                 "0.0012"
+                ],
+                "AC": [
+                 "2"
+                ],
+                "AVGPOST": [
+                 "0.9925"
+                ],
+                "AF": [
+                 "0.0009"
+                ],
+                "AMR_AF": [
+                 "0.0028"
+                ],
+                "AFR_AF": [
+                 "0.0020"
+                ]
+            },
+            "calls": [ {    
+                "callSetId": "10473108253681171589-0",
+                "callSetName": "HG00261",
+                "genotype": [0, 0],
+                "phaseset": "*",
+                "genotypeLikelihood": [-0.048, -0.48, -0.48],
+                "info": {                            
+                    "DS": "0.050"
+                }
+            }
+            ]
+        }
+        ],
+        "nextPageToken": "COCrBhDftuSFhpXq1sUB"
+    },
+
+    "SearchCallSetsRequest": {
+        "variantSetIds": ["10473108253681171589"],
+        "name": "HG00261", 
+        "pageSize": 10,
+        "pageToken": null
+    },
+
+    "SearchCallSetsResponse": {
+        "callSets": [{
+            "id": "10473108253681171589-0",
+            "name": "HG00261",
+            "sampleId": "HG00261",
+            "variantSetIds": ["10473108253681171589"],
+            "created": 1411600138221,
+            "info": null
+        }
+        ],
+        "nextPageToken": null
+    }
+}
