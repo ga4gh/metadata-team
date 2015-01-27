@@ -1,0 +1,415 @@
+@namespace("org.ga4gh.models")
+
+/**
+This protocol defines metadata used in the other GA4GH protocols.
+*/
+
+protocol Metadata {
+
+import idl "common.avdl";
+
+/**
+An ontology term describing an attribute. (e.g. the phenotype attribute
+'polydactyly' from HPO).
+
+TODO: There is the general question of object associations. This proposal here does not implement 
+specific mechanisms for this; however, the recommendation is to add time values ("dateTimeObserved", 
+"ageObserved") for temporal relations.
+*/
+record OntologyTerm {
+
+  /**
+  The source of the onotology term. This is optional if using self-referencing IDs.
+  (e.g. `Ontology for Biomedical Investigation`)
+  */
+  union { null, string };
+
+  /**
+  The ID defined by the external onotology source.
+  (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
+  */
+  string id;
+
+  /**
+  The version of the onotology (e.g. `ICD10`)
+  */
+  union { null, string } version = null;
+
+  /**
+  The name of the onotology term. (e.g. `RNA-seq assay`)
+  */
+  union { null, string } name = null;
+  
+  /**
+  Date the observation was made/assigned (e.g. date of diagnosis, observation of phenotype...).
+  Suitable e.g. for health related purposes, epidemiology, experimental setups (time series) ...
+  TODO: Format for this?
+  */
+  union { null, string } dateTimeobserved = null;
+
+  /**
+  Age at time of the observation (e.g. diagnosis, observation of phenotype...).
+  This is highly relevant in the human context and usually the primary available time related 
+  parameter available.
+  */
+  union { null, string } ageObserved = null;
+
+}
+
+/**
+####################################################################################################
+
+There is the general question if one should use different record types or having a universal 
+object for all of individual, sample, experiment ... and use a "type" attribute.
+Other types would then be only reserved for "virtual" objects (groups, ontologyTerm ...).
+
+One reason for this is that the hierarchically lowest data object (e.g. experiment) in principle 
+could (and frequently will) contain all different types of attributes from "upstream" objects (e.g. 
+information about the individual); and this is in concordance with denormalization practices.
+
+####################################################################################################
+*/
+
+/**
+An individual (or subject) typically corresponds to an individual
+human or other organism.
+*/
+record Individual {
+
+  /**
+  The individual UUID. This is globally unique. 
+  The recommendation is to use an anonymous UUID type with extremely low collision probability.
+  The typical implementation would be UUIDv4.  
+  This has to be provided by the implementation.
+  */  
+  string id;
+
+  /** 
+  The IDs of the different ga4gh.groups this individual belongs to.
+  Implementation dependent there may be the preference to keep the ids of "ga4gh.Individual", 
+  "ga4gh.Sample" and so on inside the "ga4gh.Group" objects.
+  */
+  array<string> memberOf = [];
+  
+  /** 
+  The IDs of "upstream" objects of which this ga4ghObject is derived from. Examples for an annotated 
+  object of type "experiment" would be e.g. UUIDs of the individual and sample type objects it was 
+  based on. Probably does not apply the "Individual" object (use "memberOf" instead for families 
+  etc.).
+  */
+  array<string> derivedFrom = [];
+
+  /** 
+  The IDs of "downstream" objects of which derive from this ga4ghObject. Examples for an annotated 
+  object of type "individual" would be e.g. UUIDs of "sample" and "experiment" type objects.
+  */
+  array<string> parentOf = [];
+
+  /**
+  The name of the individual.
+  This is for information purposes only and not expected to be used for identification purposes 
+  or to be exposed at all across repositories. Also, no format is imposed though the recommendation 
+  would be natural English language based - FirstName (middle components)? LastName.
+  */
+  union { null, string } name = null;
+
+  /**
+  For information purposes only. An optional, free text description of the individual. 
+  */
+
+  union { null, string } description = null;
+
+  /**
+  The time at which this individual's record was created in milliseconds from the epoch. 
+  This has to be provided by the implementation.
+  */
+  union { null, long } recordCreated = null;
+
+  /**
+  The time at which this individual's record was last updated in milliseconds
+  from the epoch.
+  This has to be provided by the implementation.
+  */
+  union { null, long } recordUpdated = null;
+
+  /**
+  The species of this individual. Using
+  [NCBI taxonomy](http://www.ncbi.nlm.nih.gov/taxonomy) is recommended.
+  For a representation of an NCBI Taxon ID as an OntologyTerm, see
+  [NCBITaxon Ontology](http://www.obofoundry.org/wiki/index.php/NCBITaxon:Main_Page).
+  For example, 'Homo sapiens' has the ID 9606. The NCBITaxon ontology ID for this is
+  NCBITaxon:9606, which has the URI http://purl.obolibrary.org/obo/NCBITaxon_9606
+  */
+  union { null, OntologyTerm } species = null;
+
+  /** The genetic sex of this individual. Recommended values are:
+		* `FEMALE`: Genetic/chromosomal female
+		* `MALE`: Genetic/chromosomal male
+		* `OTHER`: sex information ambiguous, e.g. not clearly one of XX/XY/ZZ...
+		* `MIXED_SAMPLE`: Multiple samples, e.g. pooled, environmental
+		* `NOT_APPLICABLE`: Used for prokaryotes, snails, etc. Not used for humans.
+  */
+  union { null, string } sex = null;
+
+  /**
+  The developmental stage of this individual. Using Uberon is recommended.
+  */
+  union { null, OntologyTerm } developmentalStage = null;
+
+  /**
+  The date of birth of this individual as YYYY-MM-DD format(e.g. 2008-08-18).
+  The date may be fuzzed for privacy reasons.
+  
+  TODO: This was changed from milliseconds from the epoch. Is this suitable, or do we specify the 
+  internal representation in in Unix time?
+  */
+  union { null, string } dateOfBirth = null;
+
+  /**
+  Diseases with which the individual has been diagnosed.
+  */
+  array<OntologyTerm> diseases = [];
+
+  /**
+  Phenotypes for this individual.
+  */
+  array<OntologyTerm> phenotypes = [];
+
+  /**
+  Procedures for this individual.
+  Examples could be cell line treatments (e.g. drug exposure with time series information), or 
+  medical procedures performed on an individual.
+  TODO: Explore ontologies for this.
+  */
+  array<OntologyTerm> procedures = [];
+
+  /**
+  The strain of this individual, for non-humans.
+  
+  TODO: Do we need this specified, and if so => better as OntologyTerm?
+  
+  */
+  union { null, string } strain = null;
+
+  /**
+  A map of additional individual information.
+  */
+  map<array<string>> info = {};
+
+}
+
+
+/**
+A biological sample used in an experiment. (e.g. whole blood from
+an affected individual)
+Only attributes occurring first at this object level are annotated (with the exception of the 
+required ones).
+*/
+record Sample {
+
+  string id;
+
+  array<string> derivedFrom = [];
+
+  array<string> parentOf = [];
+
+  /**
+  Public identifiers for this sample. These could be database specific ids (think GEO "GSM12345") 
+  or stable links.  
+  */
+  array<string> accessions = [];
+
+  /**
+  The name of the sample.
+  Usually this would be an internal id and may not be exposed through a public API.
+  */
+  union { null, string } name = null;
+
+  /** 
+  A description of the sample. 
+  */
+  union { null, string } description = null;
+
+  union { null, long } recordCreated = null;
+
+  union { null, long } recordUpdated = null;
+
+   /**
+  The time at which this sample was taken from the individual, in YYYY-MM-DD-HH-MM-SS.
+  */
+  union { null, long } samplingDateTime = null;
+
+  /**
+  The age of the individual at time of sample collection in years.
+  This field may be approximate.
+  */
+  union { null, long } age = null;
+
+  /**
+  The cell type of this sample.
+  Using the [Cell Ontology](http://cellontology.org/) (CL) is recommended. See 
+  */
+  union { null, OntologyTerm } cellType = null;
+
+  /** 
+  The cell line of this sample. 
+  Using the [Cell Line Ontology](https://code.google.com/p/clo-ontology/) is a possibility.
+  TODO: discuss further. Other possibilities: Cellosaurus (nextprot), BRENDA/BTO, EFO (EBI)
+  */
+  union { null, OntologyTerm } cellLine = null;
+
+  /**
+  Geographic coordinates from which the individual was obtained.
+  TODO: Figure out the right type for this field.
+  */
+  union { null, string } geocode = null;
+
+  /** A descriptor of the sample type. (e.g. `frozen`) */
+  union { null, string } sampleType = null;
+
+  /**
+  The anatomical part of the individual from which this sample derives.
+  Using [Uberon](http://uberon.org) is recommended.
+  */
+  union { null, OntologyTerm } organismPart = null;
+
+  /**
+  A map of additional sample information.
+  */
+  map<array<string>> info = {};
+  
+}
+
+/**
+An experimental preparation of a `Sample`.
+TODO: Either we make this "sequencingExperiment", or we exclude technology specific attribute names. 
+There are many attributes which are specific to the current way to do genome analysis (e.g. 
+"platformUnit").
+*/
+record Experiment {
+
+  string id;
+
+  union { null, string } name = null;
+
+  union { null, string } description = null;
+
+  union { null, long } recordCreated = null;
+
+  union { null, long } recordUpdated = null;
+
+  /**
+  The time at which this experiment was performed in milliseconds
+  from the epoch.
+  */
+  union { null, long } runDate = null;
+
+  /**
+  The molecule examined in this experiment. (e.g. genomics DNA, total RNA)
+  */
+  union { null, string } molecule = null;
+
+  /**
+  The experiment technique or strategy applied to the sample.
+  (e.g. whole genome sequencing, RNA-seq, RIP-seq)
+  */
+  union { null, string } strategy = null;
+
+  /**
+  The method used to enrich the target. (e.g. immunoprecipitation, size
+  fractionation, RNase digestion)
+  */
+  union { null, string } selection = null;
+
+  /** The name of the library used as part of this experiment. */
+  union { null, string } library = null;
+
+  /** The configuration of sequenced reads. (e.g. Single or Paired) */
+  union { null, string } libraryLayout = null;
+
+  /**
+    The instrument model used as part of this experiment.
+    This maps to sequencing technology in BAM.
+  */
+  union { null, string } instrumentModel;
+
+  /**
+  The data file generated by the instrument.
+  TODO: This isn't actually a file is it?
+  Should this be `instrumentData` instead?
+  */
+  union { null, string } instrumentDataFile = null;
+
+  /**
+  The analysis center used as part of this experiment.
+  TODO: Again, specific for sequencing. Should be technology agnostic (who knows?).  
+  */
+  union { null, string } analysisCenter;
+
+  /**
+  The platform unit used as part of this experiment. This is a flowcell-barcode
+  or slide unique identifier.
+  */
+  union { null, string } platformUnit = null;
+
+  map<array<string>> info = {};
+
+}
+
+/**
+Represents a group of individuals. (e.g. a trio)
+*/
+record IndividualGroup {
+
+  string id;
+
+  union { null, string } name = null;
+
+  union { null, string } description = null;
+
+  /**
+  The type of individual group.
+  TODO: Rethink this; could be a simple label static vs. dynamic; but then one may have to provide 
+  an attribute containing the parameters (e.g. a query).
+  */
+  union { null, string } type = null;
+
+  array<string> derivedFrom = [];
+
+  map<array<string>> info = {};
+
+}
+
+/**
+An analysis contains an interpretation of one or several experiments.
+(e.g. SNVs, copy number variations, methylation status) together with
+information about the methodology used.
+*/
+record Analysis {
+  /** The analysis UUID. This is globally unique. */
+  string id;
+
+  union { null, string } name = null;
+
+  union { null, string } description = null;
+
+  union { null, long } recordCreated = null;
+
+  union { null, long } recordUpdated = null;
+
+  union { null, string } type = null;
+
+  /** The software run to generate this analysis. */
+  array<string> software = null;
+
+  /**
+  A map of interpreted analysis data.
+  TODO: This is probably not the right format; has to be discussed.
+  */
+  map<array<string>> info = {};
+  
+  map<array<string>> info = {};
+
+}
+
+}
