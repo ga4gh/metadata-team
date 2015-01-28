@@ -45,7 +45,7 @@ record OntologyTerm {
   Suitable e.g. for health related purposes, epidemiology, experimental setups (time series) ...
   TODO: Format for this?
   */
-  union { null, string } dateTimeobserved = null;
+  union { null, string } dateTimeObserved = null;
 
   /**
   Age at time of the observation (e.g. diagnosis, observation of phenotype...).
