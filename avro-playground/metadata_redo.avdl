@@ -56,19 +56,6 @@ record OntologyTerm {
 
 }
 
-/**
-####################################################################################################
-
-There is the general question if one should use different record types or having a universal 
-object for all of individual, sample, experiment ... and use a "type" attribute.
-Other types would then be only reserved for "virtual" objects (groups, ontologyTerm ...).
-
-One reason for this is that the hierarchically lowest data object (e.g. experiment) in principle 
-could (and frequently will) contain all different types of attributes from "upstream" objects (e.g. 
-information about the individual); and this is in concordance with denormalization practices.
-
-####################################################################################################
-*/
 
 /**
 An individual (or subject) typically corresponds to an individual
@@ -85,7 +72,7 @@ record Individual {
   string id;
 
   /** 
-  The IDs of the different ga4gh.groups this individual belongs to.
+  The IDs of the different "ga4gh.Group"s this individual belongs to.
   Implementation dependent there may be the preference to keep the ids of "ga4gh.Individual", 
   "ga4gh.Sample" and so on inside the "ga4gh.Group" objects.
   */
@@ -116,7 +103,6 @@ record Individual {
   /**
   For information purposes only. An optional, free text description of the individual. 
   */
-
   union { null, string } description = null;
 
   /**
@@ -168,7 +154,7 @@ record Individual {
   /**
   Diseases with which the individual has been diagnosed.
   */
-  array<OntologyTerm> diseases = [];
+  array<OntologyTerm> disorders = [];
 
   /**
   Phenotypes for this individual.
@@ -225,16 +211,13 @@ record Sample {
   */
   union { null, string } name = null;
 
-  /** 
-  A description of the sample. 
-  */
   union { null, string } description = null;
 
   union { null, long } recordCreated = null;
 
   union { null, long } recordUpdated = null;
 
-   /**
+  /**
   The time at which this sample was taken from the individual, in YYYY-MM-DD-HH-MM-SS.
   */
   union { null, long } samplingDateTime = null;
