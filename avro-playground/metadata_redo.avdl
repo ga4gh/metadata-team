@@ -19,27 +19,27 @@ specific mechanisms for this; however, the recommendation is to add time values 
 record OntologyTerm {
 
   /**
-  The source of the onotology term. This is optional if using self-referencing IDs.
-  (e.g. `Ontology for Biomedical Investigation`)
-  */
-  union { null, string };
-
-  /**
   The ID defined by the external onotology source.
   (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
   */
   string id;
 
   /**
-  The version of the onotology (e.g. `ICD10`)
+  The source of the onotology term. This is optional if using self-referencing IDs.
+  (e.g. `Ontology for Biomedical Investigation`)
   */
-  union { null, string } version = null;
+  union { null, string } source = null;
 
   /**
   The name of the onotology term. (e.g. `RNA-seq assay`)
   */
   union { null, string } name = null;
   
+  /**
+  The version of the onotology (e.g. `ICD10`)
+  */
+  union { null, string } version = null;
+
   /**
   Date the observation was made/assigned (e.g. date of diagnosis, observation of phenotype...).
   Suitable e.g. for health related purposes, epidemiology, experimental setups (time series) ...
