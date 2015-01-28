@@ -56,8 +56,23 @@ record OntologyTerm {
 
 }
 
-
 /**
+Observations are single measurements, which can be described through their type, value and unit,
+as well as an associated dateTime value.
+TODO: Typically, this would be numerical values; however, since there may be other types we either
+have to keep this as string or specify both numerical and string objects.
+/**
+record Observation {
+
+	string value;
+
+  union { null, string } dateTimeObserved = null;
+  
+  union { null, string } unit = null;
+
+}
+
+
 An individual (or subject) typically corresponds to an individual
 human or other organism.
 */
@@ -145,7 +160,6 @@ record Individual {
   /**
   The date of birth of this individual as YYYY-MM-DD format(e.g. 2008-08-18).
   The date may be fuzzed for privacy reasons.
-  
   TODO: This was changed from milliseconds from the epoch. Is this suitable, or do we specify the 
   internal representation in in Unix time?
   */
@@ -162,6 +176,11 @@ record Individual {
   array<OntologyTerm> phenotypes = [];
 
   /**
+  Observation/measurements for this individual.
+  */
+  array<Observation> observations = [];
+
+  /**
   Procedures for this individual.
   Examples could be cell line treatments (e.g. drug exposure with time series information), or 
   medical procedures performed on an individual.
@@ -171,9 +190,7 @@ record Individual {
 
   /**
   The strain of this individual, for non-humans.
-  
   TODO: Do we need this specified, and if so => better as OntologyTerm?
-  
   */
   union { null, string } strain = null;
 
@@ -199,16 +216,14 @@ record Sample {
 
   array<string> parentOf = [];
 
+  array<string> memberOf = [];
+
   /**
   Public identifiers for this sample. These could be database specific ids (think GEO "GSM12345") 
   or stable links.  
   */
   array<string> accessions = [];
 
-  /**
-  The name of the sample.
-  Usually this would be an internal id and may not be exposed through a public API.
-  */
   union { null, string } name = null;
 
   union { null, string } description = null;
@@ -218,12 +233,12 @@ record Sample {
   union { null, long } recordUpdated = null;
 
   /**
-  The time at which this sample was taken from the individual, in YYYY-MM-DD-HH-MM-SS.
+  The time at which this sample was taken, in YYYY-MM-DDTHH-MM-SS.
   */
   union { null, long } samplingDateTime = null;
 
   /**
-  The age of the individual at time of sample collection in years.
+  The age of the individual (not of the sample) at time of sample collection in years.
   This field may be approximate.
   */
   union { null, long } age = null;
@@ -241,13 +256,11 @@ record Sample {
   */
   union { null, OntologyTerm } cellLine = null;
 
-  /**
-  Geographic coordinates from which the individual was obtained.
-  TODO: Figure out the right type for this field.
-  */
   union { null, string } geocode = null;
 
-  /** A descriptor of the sample type. (e.g. `frozen`) */
+  /**
+  A descriptor of the sample type. (e.g. `frozen tissue`)
+  */
   union { null, string } sampleType = null;
 
   /**
@@ -256,9 +269,8 @@ record Sample {
   */
   union { null, OntologyTerm } organismPart = null;
 
-  /**
-  A map of additional sample information.
-  */
+  array<Observation> observations = [];
+
   map<array<string>> info = {};
   
 }
@@ -335,6 +347,8 @@ record Experiment {
   */
   union { null, string } platformUnit = null;
 
+  array<Observation> observations = [];
+
   map<array<string>> info = {};
 
 }
@@ -369,7 +383,7 @@ An analysis contains an interpretation of one or several experiments.
 information about the methodology used.
 */
 record Analysis {
-  /** The analysis UUID. This is globally unique. */
+
   string id;
 
   union { null, string } name = null;
@@ -382,14 +396,16 @@ record Analysis {
 
   union { null, string } type = null;
 
-  /** The software run to generate this analysis. */
+  /**
+  The software run to generate this analysis.
+  */
   array<string> software = null;
 
   /**
   A map of interpreted analysis data.
   TODO: This is probably not the right format; has to be discussed.
   */
-  map<array<string>> info = {};
+  map<array<string>> results = {};
   
   map<array<string>> info = {};
 
