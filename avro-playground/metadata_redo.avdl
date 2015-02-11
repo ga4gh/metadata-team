@@ -65,7 +65,7 @@ have to keep this as string or specify both numerical and string objects.
 /**
 record Observation {
 
-	string value;
+  string value;
 
   union { null, string } dateTimeObserved = null;
   
