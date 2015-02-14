@@ -76,6 +76,19 @@ record Observation {
 }
 
 
+/**
+A geolocation object, formatted as GeoJSON.
+*/
+record GeoLoc {
+
+	string type;
+	
+	array<float> coordinates = [];
+
+}
+
+
+/**
 An individual (or subject) typically corresponds to an individual
 human or other organism.
 */
@@ -97,10 +110,13 @@ record Individual {
   array<string> memberOf = [];
   
   /** 
-  The IDs of "upstream" objects of which this ga4ghObject is derived from. Examples for an annotated 
-  object of type "experiment" would be e.g. UUIDs of the individual and sample type objects it was 
-  based on. Probably does not apply the "Individual" object (use "memberOf" instead for families 
+  The IDs of "upstream" records of which this ga4ghObject is derived from. Examples for an annotated 
+  record of type "experiment" would be e.g. UUIDs of the individual and sample type records it was 
+  based on. Probably does not apply the "Individual" record type (use "memberOf" instead for families 
   etc.).
+  Together with creation time stamps, this can also be part of a versioning concept where records of 
+  the same type point towards their history.
+  TODO: Alternatively use a "sameAs" attribute for records describing the same object w/ edits.
   */
   array<string> derivedFrom = [];
 
@@ -260,7 +276,7 @@ record Sample {
   */
   union { null, OntologyTerm } cellLine = null;
 
-  union { null, string } geocode = null;
+  union { null, GeoLoc } geoloc = null;
 
   /**
   A descriptor of the sample type. (e.g. `frozen tissue`)
