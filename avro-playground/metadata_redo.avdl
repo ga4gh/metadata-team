@@ -2,6 +2,7 @@
 
 /**
 This protocol defines metadata used in the other GA4GH protocols.
+[EAGLE: Needs a fuller description of the document in the header. What are the "other protocols"? Metadata for what?]
 */
 
 protocol Metadata {
@@ -20,6 +21,7 @@ record OntologyTerm {
 
   /**
   The ID defined by the external onotology source.
+[EAGLE: correct all typos of onotology to ontology?]
   (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
   */
   string id;
@@ -34,7 +36,7 @@ record OntologyTerm {
   The name of the onotology term. (e.g. `RNA-seq assay`)
   */
   union { null, string } name = null;
-  
+[OntologyTerm.name is nullable. Is this a good idea? Also why not use 'term' instead of name, more intuitive]  
   /**
   The version of the onotology (e.g. `ICD10`)
   */
@@ -44,9 +46,10 @@ record OntologyTerm {
   Date the observation was made/assigned (e.g. date of diagnosis, observation of phenotype...).
   Suitable e.g. for health related purposes, epidemiology, experimental setups (time series) ...
   TODO: Format for this? ISO 8601, YYYY-MM-DDTHH:MM:SS format (e.g. 2015-02-10T00:03:42Z) seems natural.
+[EAGLE: highly recommend ISO8601 for all records of date/time in the schema]
   */
   union { null, string } dateTimeObserved = null;
-
+[EAGLE: OntologyTerm.dateTimeObserved - is this useful in the OntologyTerm record? Should this be an Observation attribute?]
   /**
   Age at time of the observation (e.g. diagnosis, observation of phenotype...).
   This is highly relevant in the human context and usually the primary available time related 
@@ -54,6 +57,7 @@ record OntologyTerm {
   TODO: Unit? Years would be natural in human context.
   */
   union { null, string } ageObserved = null;
+[EAGLE: OntologyTerm.ageObserved - is this useful in the OntologyTerm record? Should this be an Observation attribute?]
 
 }
 
@@ -66,6 +70,8 @@ have to keep this as string or specify both numerical and string objects.
 record Observation {
 
   string type;
+[EAGLE: Observation.type - suggest union { OntologyTerm.id, string } to encourage Ontology terms, e.g. EFO_0004324, body height
+add an example of a measurement, e.g. body height, body weight, smoking behaviour.]
 
   string value;
 
@@ -91,6 +97,7 @@ record GeoLoc {
 /**
 An individual (or subject) typically corresponds to an individual
 human or other organism.
+[EAGLE: presuming use of individual was chosen over 'Subject' as this schema is to cover all species, not just human?]
 */
 record Individual {
 
@@ -142,6 +149,7 @@ record Individual {
   /**
   The time at which this individual's record was created in milliseconds from the epoch. 
   TODO: Alternative formats?
+[EAGLE: use ISO8601]
   */
   union { null, long } recordCreated = null;
 
@@ -149,6 +157,7 @@ record Individual {
   The time at which this individual's record was last updated in milliseconds
   from the epoch.
   TODO: Alternative formats?
+[EAGLE: use ISO8601]
   */
   union { null, long } recordUpdated = null;
 
@@ -217,7 +226,9 @@ record Individual {
   A map of additional individual information.
   */
   map<array<string>> info = {};
-
+[EAGLE: suggestion of further fields for this record: ethnicity, date of death, address?]
+[EAGLE: Possibly abstract to a “Characteristics” type, similar to ‘Observation’? That would make the model more flexible and encourage the use of ontology terms, e.g. EFO for sex.]
+[EAGLE: Data in this section (name and data of birth) require considerations with regards to the confidentiality and integrity of ePHI (electronic Personal Health Information) in transit. Overlap with the security working group here.]
 }
 
 
@@ -260,6 +271,7 @@ record Sample {
   The age of the individual (not of the sample) at time of sample collection.
   This field may be approximate.
   TODO: Unit? Years would be natural in human context.
+[EAGLE: age is an Observation of the Individual that is already captured, this is duplication of information. Age is not an attribute of the Sample (unless you mean how long it’s been in the freezer).]
   */
   union { null, long } age = null;
 
@@ -395,7 +407,7 @@ record IndividualGroup {
   array<string> derivedFrom = [];
 
   map<array<string>> info = {};
-
+[EAGLE: IndividualGroup.recordCreated and IndividualGroup.recordUpdated are missing from this record]
 }
 
 /**
@@ -421,7 +433,7 @@ record Analysis {
   The software run to generate this analysis.
   */
   array<string> software = null;
-
+[EAGLE: add what version of the software was used?]                                                                                                     
   /**
   A map of interpreted analysis data.
   TODO: This is probably not the right format; has to be discussed.
@@ -431,5 +443,24 @@ record Analysis {
   map<array<string>> info = {};
 
 }
+[EAGLE: Suggestion of missing records to capture clinical data that seem to be absent from existing schema:
+Clinical study: Capture the date, time, place and name of physician where patient visited/registered to
+Investigator name
+Investigator identifier
+Study site
+Study country
+TimeDate consent
+TimeDate end of participation
 
+Clinical event/adverse event: Capture the adverse event(s) that prompted the clinical study/visit
+Term
+affected body system 
+Severity
+TimeDate of Occurrence
+
+This could be further extended to include records/fields for:
+CRF
+Medical history/hospital record
+Physical examination data
+I have not expanded these further ... ]
 }
