@@ -47,7 +47,7 @@ record OntologyTerm {
   Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
   union { null, string } dateTimeObserved = null;
-[EAGLE: OntologyTerm.dateTimeObserved - is this useful in the OntologyTerm record? Should this be an Observation attribute?]
+
   /**
   Age at time of the observation (e.g. diagnosis, observation of phenotype...).
   This is highly relevant in the human context and usually the primary available time related 
@@ -55,7 +55,6 @@ record OntologyTerm {
   TODO: Unit? Years would be natural in human context.
   */
   union { null, string } ageObserved = null;
-[EAGLE: OntologyTerm.ageObserved - is this useful in the OntologyTerm record? Should this be an Observation attribute?]
 
 }
 
@@ -95,7 +94,6 @@ record GeoLoc {
 /**
 An individual (or subject) typically corresponds to an individual
 human or other organism.
-[EAGLE: presuming use of individual was chosen over 'Subject' as this schema is to cover all species, not just human?]
 */
 record Individual {
 
@@ -432,7 +430,7 @@ record Analysis {
   The software run to generate this analysis.
   */
   array<string> software = null;
-[EAGLE: add what version of the software was used?]                                                                                                     
+
   /**
   A map of interpreted analysis data.
   TODO: This is probably not the right format; has to be discussed.
@@ -442,24 +440,5 @@ record Analysis {
   map<array<string>> info = {};
 
 }
-[EAGLE: Suggestion of missing records to capture clinical data that seem to be absent from existing schema:
-Clinical study: Capture the date, time, place and name of physician where patient visited/registered to
-Investigator name
-Investigator identifier
-Study site
-Study country
-TimeDate consent
-TimeDate end of participation
 
-Clinical event/adverse event: Capture the adverse event(s) that prompted the clinical study/visit
-Term
-affected body system 
-Severity
-TimeDate of Occurrence
-
-This could be further extended to include records/fields for:
-CRF
-Medical history/hospital record
-Physical examination data
-I have not expanded these further ... ]
 }
