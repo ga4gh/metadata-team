@@ -20,33 +20,31 @@ specific mechanisms for this; however, the recommendation is to add time values 
 record OntologyTerm {
 
   /**
-  The ID defined by the external onotology source.
-[EAGLE: correct all typos of onotology to ontology?]
+  The ID defined by the external ontology source.
   (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
   */
   string id;
 
   /**
-  The source of the onotology term. This is optional if using self-referencing IDs.
+  The source of the ontology term. This is optional if using self-referencing IDs.
   (e.g. `Ontology for Biomedical Investigation`)
   */
   union { null, string } source = null;
 
   /**
-  The name of the onotology term. (e.g. `RNA-seq assay`)
+  The name of the ontology term. (e.g. `RNA-seq assay`)
   */
   union { null, string } name = null;
 [OntologyTerm.name is nullable. Is this a good idea? Also why not use 'term' instead of name, more intuitive]  
   /**
-  The version of the onotology (e.g. `ICD10`)
+  The version of the ontology (e.g. `ICD10`)
   */
   union { null, string } version = null;
 
   /**
   Date the observation was made/assigned (e.g. date of diagnosis, observation of phenotype...).
   Suitable e.g. for health related purposes, epidemiology, experimental setups (time series) ...
-  TODO: Format for this? ISO 8601, YYYY-MM-DDTHH:MM:SS format (e.g. 2015-02-10T00:03:42Z) seems natural.
-[EAGLE: highly recommend ISO8601 for all records of date/time in the schema]
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
   union { null, string } dateTimeObserved = null;
 [EAGLE: OntologyTerm.dateTimeObserved - is this useful in the OntologyTerm record? Should this be an Observation attribute?]
@@ -147,17 +145,14 @@ record Individual {
   union { null, string } description = null;
 
   /**
-  The time at which this individual's record was created in milliseconds from the epoch. 
-  TODO: Alternative formats?
-[EAGLE: use ISO8601]
+  The time at which this individual's record was created. 
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
   union { null, long } recordCreated = null;
 
   /**
-  The time at which this individual's record was last updated in milliseconds
-  from the epoch.
-  TODO: Alternative formats?
-[EAGLE: use ISO8601]
+  The time at which this individual's record was last updated.
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
   union { null, long } recordUpdated = null;
 
@@ -188,7 +183,6 @@ record Individual {
   /**
   The date of birth of this individual as ISO 8601, YYYY-MM-DD format (e.g. 2008-08-18).
   The date may be fuzzed for privacy reasons.
-  TODO: This was changed from milliseconds from the epoch.
   */
   union { null, string } dateOfBirth = null;
 
@@ -263,7 +257,8 @@ record Sample {
   union { null, long } recordUpdated = null;
 
   /**
-  The time at which this sample was taken, in YYYY-MM-DDTHH-MM-SS.
+  The time at which this sample was taken.
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
   union { null, long } samplingDateTime = null;
 
@@ -326,8 +321,8 @@ record Experiment {
   union { null, long } recordUpdated = null;
 
   /**
-  The time at which this experiment was performed as ISO 8601, YYYY-MM-DDTHH:MM:SS
-  TODO: Was changed from "milliseconds from the epoch".
+  The time at which this experiment was performed.
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
   union { null, long } runDate = null;
 
@@ -397,6 +392,10 @@ record IndividualGroup {
 
   union { null, string } description = null;
 
+  union { null, long } recordCreated = null;
+
+  union { null, long } recordUpdated = null;
+
   /**
   The type of individual group.
   TODO: Rethink this; could be a simple label static vs. dynamic; but then one may have to provide 
@@ -407,7 +406,7 @@ record IndividualGroup {
   array<string> derivedFrom = [];
 
   map<array<string>> info = {};
-[EAGLE: IndividualGroup.recordCreated and IndividualGroup.recordUpdated are missing from this record]
+
 }
 
 /**
