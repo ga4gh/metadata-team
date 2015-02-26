@@ -32,14 +32,35 @@ record OntologyTerm {
   union { null, string } source = null;
 
   /**
-  The name of the ontology term. (e.g. `RNA-seq assay`)
+  The ontology term. (e.g. `RNA-seq assay`)
   */
-  union { null, string } name = null;
-[OntologyTerm.name is nullable. Is this a good idea? Also why not use 'term' instead of name, more intuitive]  
+  union { null, string } term = null;
+
   /**
   The version of the ontology (e.g. `ICD10`)
   */
   union { null, string } version = null;
+
+}
+
+/**
+Observations are single measurements, which can be described through their type, value and unit,
+as well as an associated dateTime value. This could be numerical values with a unit, or 
+observations defined through ontologies.
+/**
+record Observation {
+
+  string type;
+
+[EAGLE: Observation.type - suggest union { OntologyTerm.id, string } to encourage Ontology terms, e.g. EFO_0004324, body height
+add an example of a measurement, e.g. body height, body weight, smoking behaviour.]
+
+  string value;
+
+	/**
+	The unit of the observation; e.g. for numeric values.
+	/*
+  union { null, string } unit = null;
 
   /**
   Date the observation was made/assigned (e.g. date of diagnosis, observation of phenotype...).
@@ -55,29 +76,8 @@ record OntologyTerm {
   TODO: Unit? Years would be natural in human context.
   */
   union { null, string } ageObserved = null;
-
-}
-
-/**
-Observations are single measurements, which can be described through their type, value and unit,
-as well as an associated dateTime value.
-TODO: Typically, this would be numerical values; however, since there may be other types we either
-have to keep this as string or specify both numerical and string objects.
-/**
-record Observation {
-
-  string type;
-[EAGLE: Observation.type - suggest union { OntologyTerm.id, string } to encourage Ontology terms, e.g. EFO_0004324, body height
-add an example of a measurement, e.g. body height, body weight, smoking behaviour.]
-
-  string value;
-
-  union { null, string } dateTimeObserved = null;
   
-  union { null, string } unit = null;
-
 }
-
 
 /**
 A geolocation object, formatted as GeoJSON.
@@ -89,7 +89,6 @@ record GeoLoc {
 	array<float> coordinates = [];
 
 }
-
 
 /**
 An individual (or subject) typically corresponds to an individual
@@ -264,9 +263,8 @@ record Sample {
   The age of the individual (not of the sample) at time of sample collection.
   This field may be approximate.
   TODO: Unit? Years would be natural in human context.
-[EAGLE: age is an Observation of the Individual that is already captured, this is duplication of information. Age is not an attribute of the Sample (unless you mean how long it’s been in the freezer).]
   */
-  union { null, long } age = null;
+  union { null, long } ageAtSampling = null;
 
   /**
   The cell type of this sample.
