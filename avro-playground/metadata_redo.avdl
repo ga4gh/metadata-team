@@ -67,7 +67,7 @@ add an example of a measurement, e.g. body height, body weight, smoking behaviou
   Suitable e.g. for health related purposes, epidemiology, experimental setups (time series) ...
   Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
-  union { null, string } dateTimeObserved = null;
+  union { null, timestamp-millis } dateTimeObserved = null;
 
   /**
   Age at time of the observation (e.g. diagnosis, observation of phenotype...).
@@ -75,7 +75,7 @@ add an example of a measurement, e.g. body height, body weight, smoking behaviou
   parameter available.
   TODO: Unit? Years would be natural in human context.
   */
-  union { null, string } ageObserved = null;
+  union { null, timestamp-millis } ageObserved = null;
   
 }
 
@@ -145,13 +145,13 @@ record Individual {
   The time at which this individual's record was created. 
   Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
-  union { null, long } recordCreated = null;
+  union { null, timestamp-millis } recordCreated = null;
 
   /**
   The time at which this individual's record was last updated.
   Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
-  union { null, long } recordUpdated = null;
+  union { null, timestamp-millis } recordUpdated = null;
 
   /**
   The species of this individual. Using
@@ -163,14 +163,10 @@ record Individual {
   */
   union { null, OntologyTerm } species = null;
 
-  /** The genetic sex of this individual. Recommended values are:
-		* `female`: Genetic/chromosomal female
-		* `male`: Genetic/chromosomal male
-		* `other`: sex information ambiguous, e.g. not clearly one of XX/XY/ZZ...
-		* `mixed sample`: Multiple samples, e.g. pooled, environmental
-		* `not applicable`: Used for prokaryotes, snails, etc. Not used for humans.
+  /**
+  The genetic sex of this individual.
   */
-  union { null, string } sex = null;
++  union { null, OntologyTerm } sex = null;
 
   /**
   The developmental stage of this individual. Using Uberon is recommended.
@@ -181,7 +177,7 @@ record Individual {
   The date of birth of this individual as ISO 8601, YYYY-MM-DD format (e.g. 2008-08-18).
   The date may be fuzzed for privacy reasons.
   */
-  union { null, string } dateOfBirth = null;
+  union { null, date } dateOfBirth = null;
 
   /**
   Diseases with which the individual has been diagnosed.
@@ -209,9 +205,8 @@ record Individual {
 
   /**
   The strain of this individual, for non-humans.
-  TODO: Do we need this specified, and if so => better as OntologyTerm?
   */
-  union { null, string } strain = null;
+  union { null, OntologyTerm } strain = null;
 
   /**
   A map of additional individual information.
@@ -249,15 +244,15 @@ record Sample {
 
   union { null, string } description = null;
 
-  union { null, long } recordCreated = null;
+  union { null, timestamp-millis } recordCreated = null;
 
-  union { null, long } recordUpdated = null;
+  union { null, timestamp-millis } recordUpdated = null;
 
   /**
   The time at which this sample was taken.
   Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
-  union { null, long } samplingDateTime = null;
+  union { null, timestamp-millis } samplingDateTime = null;
 
   /**
   The age of the individual (not of the sample) at time of sample collection.
@@ -312,15 +307,15 @@ record Experiment {
 
   union { null, string } description = null;
 
-  union { null, long } recordCreated = null;
+  union { null, timestamp-millis } recordCreated = null;
 
-  union { null, long } recordUpdated = null;
+  union { null, timestamp-millis } recordUpdated = null;
 
   /**
   The time at which this experiment was performed.
   Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42Z)
   */
-  union { null, long } runDate = null;
+  union { null, timestamp-millis } runDate = null;
 
   /**
   The molecule examined in this experiment. (e.g. genomic DNA, total RNA)
@@ -388,9 +383,9 @@ record IndividualGroup {
 
   union { null, string } description = null;
 
-  union { null, long } recordCreated = null;
+  union { null, timestamp-millis } recordCreated = null;
 
-  union { null, long } recordUpdated = null;
+  union { null, timestamp-millis } recordUpdated = null;
 
   /**
   The type of individual group.
@@ -418,9 +413,9 @@ record Analysis {
 
   union { null, string } description = null;
 
-  union { null, long } recordCreated = null;
+  union { null, timestamp-millis } recordCreated = null;
 
-  union { null, long } recordUpdated = null;
+  union { null, timestamp-millis } recordUpdated = null;
 
   union { null, string } type = null;
 
