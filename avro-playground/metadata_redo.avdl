@@ -47,19 +47,21 @@ record OntologyTerm {
 Observations are single measurements, which can be described through their type, value and unit,
 as well as an associated dateTime value. This could be numerical values with a unit, or 
 observations defined through ontologies.
-/**
+*/
 record Observation {
 
   string type;
 
+	/**
 [EAGLE: Observation.type - suggest union { OntologyTerm.id, string } to encourage Ontology terms, e.g. EFO_0004324, body height
 add an example of a measurement, e.g. body height, body weight, smoking behaviour.]
-
+	*/
+	
   string value;
 
 	/**
 	The unit of the observation; e.g. for numeric values.
-	/*
+	*/
   union { null, string } unit = null;
 
   /**
