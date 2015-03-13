@@ -5,5 +5,7 @@ The metadata-team project is a communication and "playground" area for exchangin
 
 The standard usage would be to create a fork of the repositry, and then to add/edit the respective documents. For example files, the preference would be to create dummy cases as <document>.json files.
 
+For further information, please consult the [GA4GH.DWG.MTT wiki](https://github.com/ga4gh/metadata-team/wiki/Wiki.GA4GH.DWG.MTT).
+
 
 (<sup>*</sup>Everything but the sequence<sup>TM</sup>)
