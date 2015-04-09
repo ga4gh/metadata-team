@@ -29,7 +29,7 @@ record OntologyTerm {
   The URI of the external ontology source + ID.
   (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
   */
-  union { null, string } url = null;
+  union { null, string } uri = null;
   
   /**
   The source of the ontology term. This is optional if using self-referencing IDs.
