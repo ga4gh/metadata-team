@@ -21,10 +21,16 @@ record OntologyTerm {
 
   /**
   The ID defined by the external ontology source.
-  (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
+  (e.g. `OBI_0001271`)
   */
   string id;
 
+  /**
+  The URL of the external ontology source + ID.
+  (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
+  */
+  union { null, string } url = null;
+  
   /**
   The source of the ontology term. This is optional if using self-referencing IDs.
   (e.g. `Ontology for Biomedical Investigation`)
