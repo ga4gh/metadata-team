@@ -10,46 +10,6 @@ protocol Metadata {
 import idl "common.avdl";
 
 /**
-An ontology term describing an attribute. (e.g. the phenotype attribute
-'polydactyly' from HPO).
-
-TODO: There is the general question of object associations. This proposal here does not implement 
-specific mechanisms for this; however, the recommendation is to add time values ("dateTimeObserved", 
-"ageObserved") for temporal relations.
-*/
-record OntologyTerm {
-
-  /**
-  The ID defined by the external ontology source.
-  (e.g. `OBI_0001271`)
-  */
-  string id;
-
-  /**
-  The URI of the external ontology source + ID.
-  (e.g. `http://purl.obolibrary.org/obo/OBI_0001271`)
-  */
-  union { null, string } uri = null;
-  
-  /**
-  The source of the ontology term. This is optional if using self-referencing IDs.
-  (e.g. `Ontology for Biomedical Investigation`)
-  */
-  union { null, string } source = null;
-
-  /**
-  The ontology term. (e.g. `RNA-seq assay`)
-  */
-  union { null, string } term = null;
-
-  /**
-  The version of the ontology (e.g. `ICD10`)
-  */
-  union { null, string } version = null;
-
-}
-
-/**
 Observations are single measurements, which can be described through their type, value and unit,
 as well as an associated dateTime value. This could be numerical values with a unit, or 
 observations defined through ontologies.
