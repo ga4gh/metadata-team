@@ -49,6 +49,10 @@ add an example of a measurement, e.g. body height, body weight, smoking behaviou
 
 /**
 A geolocation object, formatted as GeoJSON.
+This implementation supports the basic geometries of which 
+"Point" and "Polygon" should represent the most likely 
+use cases here (e.g. for description of a sample's provenience).
+See also http://geojson.org/geojson-spec.html.
 */
 record GeoLoc {
 
