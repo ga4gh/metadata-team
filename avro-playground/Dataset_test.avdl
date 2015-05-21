@@ -1,0 +1,38 @@
+/**
+Represents a group of data objects of one or more types (e.g. all Individuals, Samples, Experiments 
+associated with a clinical study; or e.g. a trio in genetic diagnostics.)
+*/
+record DataSet {
+  /** The dataset UUID. This is globally unique. */
+  string id;
+
+  /** The name of the dataset. */
+  union { null, string } name = null;
+
+  /** A description of the dataset. */
+  union { null, string } description = null;
+
+  /**
+  The time at which this record was created. 
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS.SSS (e.g. 2015-02-10T00:03:42.123Z)
+  */
+  string recordCreateTime;
+
+  /**
+  The time at which this record was last updated.
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS.SSS (e.g. 2015-02-10T00:03:42.123Z)
+  */
+  string recordUpdateTime;
+
+  /** The type of dataset. Examples could be "trio", "metaanalysis", "gwas" ...*/
+  union { null, string } type = null;
+
+  /** The uuid's of included records. */
+  array<string> recordsIncluded = [];
+
+  /**
+  A map of additional individual group information.
+  */
+  map<array<string>> info = {};
+  
+}
