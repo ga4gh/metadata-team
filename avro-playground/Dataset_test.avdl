@@ -37,12 +37,12 @@ record Dataset {
   array<string> recordsIncluded = [];
 
   /**
-  The type of included records (samples, experiments...).
+  The type of included records (ga4gh.Sample, ga4gh.reads ...).
   TODO: Define necessity of this since types can be derived from the 
   referenced records.
   TODO: Define if records are limited to a single type or heterogeneous.
   */
-  union { null, string } recordTypes = null;
+  union { null, string } recordsType = null;
 
   /**
   A map of additional individual group information.
