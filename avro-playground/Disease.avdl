@@ -1,0 +1,20 @@
+/**
+
+*/
+record Disease {
+
+  string id;
+ 
+  union { null, string } description = null;
+
+  union { null, string } diagnosisDate = null;
+
+  union { null, string } recordCreated = null;
+
+  union { null, string } recordUpdated = null;
+ 
+  union { null, OntologyTerm } primaryTerm = null;
+
+  array<OntologyTerm> alternativeTerms = [];
+
+}
