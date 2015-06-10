@@ -2,19 +2,48 @@
 
 */
 record Disease {
-
+  
+  /**
+  The globally unique UUID of this disease object.
+  */
   string id;
  
+  /**
+  A textual description of the disease (e.g. "Colorectal carcinoma
+  of the right colonic flexure")
+  */
   union { null, string } description = null;
-
+  
+  /**
+  The date the diagnosis was first made.
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42)
+  This can be an approximation or missing.
+  */
   union { null, string } diagnosisDate = null;
 
-  union { null, string } recordCreated = null;
+  /**
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42)
+  */
+  string recordCreated;
 
-  union { null, string } recordUpdated = null;
+  /**
+  Format: ISO 8601, YYYY-MM-DDTHH:MM:SS (e.g. 2015-02-10T00:03:42)
+  */
+  string recordUpdated;
  
+  /**
+  The ontology term best corresponding to this disease.
+  It can remain undefined, e.g. to allow "import-compatibility" with 
+  later annotation.
+  */
   union { null, OntologyTerm } primaryTerm = null;
 
+  /**
+  An optional collection of alternative ontology terms. These should 
+  also be aimed at classifying this specific disease, not at adding 
+  additional information. This attribute allows to capture alternative 
+  classification systems.
+  */
   array<OntologyTerm> alternativeTerms = [];
 
 }
