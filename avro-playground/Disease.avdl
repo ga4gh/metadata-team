@@ -1,5 +1,12 @@
 /**
-
+This is the prototype for the "Disease" record type. This is thought to be the main 
+wrapper for any given diagnosis, and to contain one or several ontologyTerm objects
+for its definition.
+Disease records can be stored/referenced in "Diseases" lists inside parental objects 
+(e.g. Individual, Sample).
+The Disease record type could conceivably used as blueprint for generation of a 
+similarly structured Phenotype object.
+TODO: Disease or Disorder?
 */
 record Disease {
   
