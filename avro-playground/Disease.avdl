@@ -6,6 +6,8 @@ Disease records can be stored/referenced in "Diseases" lists inside parental obj
 (e.g. Individual, Sample).
 The Disease record type could conceivably used as blueprint for generation of a 
 similarly structured Phenotype object.
+Observations, interventions etc. should be kept external to the "Disease" object 
+but can be referenced using "evidence" type objects (which have yet to be defined).
 TODO: Disease or Disorder?
 */
 record Disease {
