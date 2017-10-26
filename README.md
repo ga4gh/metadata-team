@@ -10,9 +10,6 @@ This repository has been retired.
 
 
 
-* [Test datasets as "ready for MongoDB" collections](https://github.com/mbauprogenetixdis/arraymap2ga4gh/), based on the cancer genome data collection from [arraymap.org](http://arraymap.org)
-* This is an actively maintained implementation of the current and some forward looking (i.e. with a reasonable PR/plan) schema features. It should be possible to get the collections, load them into an e.g. MongoDB instance, and the test methods against these. This implementation study is part of [Elixir's human data projects](http://elixir-europe.org).
-
 
 Previous Notes:
 ---------------
